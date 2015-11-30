@@ -1,0 +1,55 @@
+// Caelyf Doctor uses jetty7 as it only needs jdk1.6
+// cd /Users/jim/Dropbox/Projects/CaelyfDoctor/build/libs 
+// $ cf push caelyfdoctor -b https://github.com/cloudfoundry/java-buildpack.git -p CaelyfDoctor.war
+buildscript {
+  repositories {
+    mavenLocal()
+    jcenter()
+    maven { url 'http://oss.jfrog.org/artifactory/oss-snapshot-local' }
+  }
+
+  dependencies {
+    classpath "org.akhikhl.gretty:gretty:1.2.4"
+  }
+}
+
+repositories {
+  mavenLocal()
+  jcenter()
+  maven { url 'http://oss.jfrog.org/artifactory/oss-snapshot-local' }
+}
+
+apply plugin: 'groovy'
+apply plugin: 'war'
+apply plugin: 'org.akhikhl.gretty'
+
+sourceCompatibility = '1.6'
+targetCompatibility = '1.6'
+
+
+
+dependencies {
+    compile "org.codehaus.groovy:groovy-all:2.4.5"
+
+	runtime "org.jruby:jruby-complete:1.7.21"
+	runtime "com.beust:jcommander:1.48"
+    runtime "org.asciidoctor:asciidoctorj:1.5.3.2"
+    runtime "redis.clients:jedis:2.7.2" // runtime failure if not included
+}
+
+gretty {
+  // Possible servletContainer values are 'jetty7', 'jetty8', 'jetty9', 'tomcat7', 'tomcat8'. Default is 'jetty9'.
+  servletContainer = 'jetty7'
+  scanInterval = 18
+  contextPath = '/'
+  // httpsEnabled = true
+}
+
+war {
+  archiveName 'CaelyfDoctor.war'
+}
+
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.9'
+}
