@@ -1,5 +1,13 @@
 = README.adoc for CaelyfDoctor Project
 
+
+== Status
+
+*Travis C/I* Project Health -
+image:https://img.shields.io/travis/jnorthr/CaelyfDoctor.svg[Build Status (Travis CI), link=https://travis-ci.org/jnorthr/CaelyfDoctor]
+
+''''
+
 This project is used as a base-line to test DoctorTemplateEngine and it's documentation.
 
 Gretty is used to test using localhost:8080 fro browser address bar. These sample pages belonging to GPars - a different project but only used here as a sample. See routes.groovy for full navigation within the site.
