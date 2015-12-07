@@ -1,0 +1,11 @@
+= Date Time ADOC Page
+
+== Title One
+
+This is a sample .adoc file.
+
+The current date and time: <%= request.getAttribute('payload') %>
+
+<%= request.getAttribute('payload2') %>
+
+''''

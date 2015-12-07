@@ -1,0 +1,9 @@
+= formdata.adoc
+
+== Form Data Sample 
+
+Hi form data
+
+== Captured Form Data Follows 
+
+<%= request.getAttribute('firstname') %>
