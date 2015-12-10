@@ -8,17 +8,23 @@ image:https://img.shields.io/travis/jnorthr/CaelyfDoctor.svg[Build Status (Travi
 
 ''''
 
-This project is used as a base-line to test DoctorTemplateEngine and it's documentation.
+== Purpose
 
-Gretty is used to test using localhost:8080 fro browser address bar. These sample pages belonging to GPars - a different project but only used here as a sample. See routes.groovy for full navigation within the site.
+This project is used as a base-line to test *DoctorTemplateEngine* and it's documentation. See GitHub repo at: https://github.com/jnorthr/Doctors[Github Doctors Repo].
 
-As a secondary task, since caelyf-1.3.3.jar is used, this version of Caelyf allows the DoctorTemplateEngine to be used when testing CaelyfServlets or GroovyTemplateServlets
+Gretty is used to test using *localhost:8080* from browser address bar. These sample pages belonging to GPars - a different project but only used here as a sample. See routes.groovy for full navigation within the site.
+
+As a secondary task, since caelyf-1.3.3.jar is used, this version of https://github.com/caelyf/caelyf[Caelyf Toolkit] allows the *DoctorTemplateEngine* to be used when testing CaelyfServlets or GroovyTemplateServlets
 
 This Engine is invoked in the web.xml file where a new TemplateServlet called DoctorTemplateServet is declared and connected to any file ending with .adoc, .ad, .asciidoc. etc. 
 
-When any request arrives pointing to an .adoc file, the text from that file is passed to the DoctorTemplateEngine. This template engine uses the asciidoctorJ module to convert that text composed in asciidoctor syntax into an .html page for onward/return use by the originating browser.
+When any request arrives pointing to an .adoc file or similar suffix, the text from that file is passed to the *DoctorTemplateEngine* located in the */lib/Doctor-all-1.0.jar* of about 28MB.
 
-Several asciidoctor dependencies are declared in the build.gradle script file. These are typically :
+This template engine uses the *asciidoctorJ* module to convert that text composed in asciidoctor syntax into an .html page for onward/return use by the originating browser.
+
+== Gradle Build Tool Notes
+
+Several asciidoctor dependencies are declared in this build.gradle script file. These are typically :
 
 .Gradle Dependencies
 ----
@@ -30,5 +36,90 @@ dependencies {
     runtime "org.asciidoctor:asciidoctorj:1.5.3.2" // needed for DoctorTemplateEngine
     runtime "redis.clients:jedis:2.7.2" // runtime failure in Caelyf if not included
 }
+----
+
+== Web Server Container Notes
+
+.Partial Web.xml for a container like Jetty or Tomcat looks like this:
+----
+        <servlet>
+		<servlet-name>DoctorTemplateServlet</servlet-name>
+		<servlet-class>groovyx.caelyf.CaelyfTemplateServlet</servlet-class>
+ 		<init-param>
+			<param-name>template.engine</param-name>
+			<param-value>groovyx.text.DoctorTemplateEngine</param-value>
+		</init-param>
+	</servlet>
+
+    <servlet-mapping>
+        <servlet-name>DoctorTemplateServlet</servlet-name>
+        <url-pattern>*.adoc</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>DoctorTemplateServlet</servlet-name>
+        <url-pattern>*.asciidoc</url-pattern>
+    </servlet-mapping>
+----
+
+== Asciidoctor Templates
+
+Sample templates can be found in this folder: *CaelyfDoctor/src/main/webapp/WEB-INF/pages* and these templates are reached by entries in the routes.groovy file.
+
+For your own testing, add a new asciidoctor text file like *Fred.adoc* to this folder and add an entry to *routes.groovy* like: *get "/fred",      	forward: "WEB-INF/pages/fred.adoc"*
+
+From a console terminal command line type: _gradlew_ <or> _./gradlew_ to start a session. Since the Gradle wrapper is included in this download, you do not need to manually download
+any dependent jars or code. Gradle will do this for you. You only need an active internet connection and some disk space.
+
+The *Gretty* web server will startup and from a web browser you can enter *localhost:8080/* to begin a session. The first time always takes a while as a numner of pieces of code and jars and dependencies
+are downloaded for you.  My most recent log file looked like this:
+
+.Log File
+[source,bash]
+----
+jnorthr@iMac:~/Downloads/CaelyfDoctor$ gradlew 
+Parallel execution is an incubating feature.
+:compileJava UP-TO-DATE
+:compileGroovy UP-TO-DATE
+:processResources UP-TO-DATE
+:classes UP-TO-DATE
+:compileTestJava UP-TO-DATE
+:compileTestGroovy UP-TO-DATE
+:processTestResources UP-TO-DATE
+:testClasses UP-TO-DATE
+:test UP-TO-DATE
+:check UP-TO-DATE
+:prepareInplaceWebAppFolder UP-TO-DATE
+:createInplaceWebAppFolder UP-TO-DATE
+:prepareInplaceWebAppClasses UP-TO-DATE
+:prepareInplaceWebApp UP-TO-DATE
+:appRunDec 10, 2015 3:44:00 PM groovyx.caelyf.BindingEnhancer <clinit>
+WARNING: Name of logger: caelyf.cache.BindingEnhancer
+Dec 10, 2015 3:44:00 PM groovyx.caelyf.cache.RedisHolder <clinit>
+WARNING: Name of logger: caelyf.redisholder
+Dec 10, 2015 3:44:00 PM groovyx.caelyf.cache.Environment setup
+WARNING: Name of logger: caelyf.environment
+
+15:44:08 INFO  GroovletServlet: Parsing init parameters...
+15:44:08 INFO  GroovletServlet: (Abstract) init done. Listing some parameter name/value pairs:
+15:44:08 INFO  GroovletServlet: verbose = true
+15:44:08 INFO  GroovletServlet: reflection = false
+15:44:08 INFO  GroovletServlet: logGROOVY861 = false
+15:44:08 INFO  GroovletServlet: resource.name.regex = null
+15:44:08 INFO  GroovletServlet: resource.name.replacement = null
+15:44:08 INFO  Groovy servlet initialized on groovy.util.GroovyScriptEngine@1a7eb33.
+15:44:08 INFO  DoctorTemplateServlet: Parsing init parameters...
+15:44:08 INFO  DoctorTemplateServlet: (Abstract) init done. Listing some parameter name/value pairs:
+15:44:08 INFO  DoctorTemplateServlet: verbose = true
+15:44:08 INFO  DoctorTemplateServlet: reflection = false
+15:44:08 INFO  DoctorTemplateServlet: logGROOVY861 = false
+15:44:08 INFO  DoctorTemplateServlet: resource.name.regex = null
+15:44:08 INFO  DoctorTemplateServlet: resource.name.replacement = null
+15:44:08 INFO  DoctorTemplateServlet: Servlet groovyx.caelyf.CaelyfTemplateServlet initialized on class groovyx.text.DoctorTemplateEngine
+15:44:08 INFO  TemplateServlet: Servlet groovyx.caelyf.CaelyfTemplateServlet initialized on class groovy.text.SimpleTemplateEngine
+15:44:09 INFO  Jetty 7.6.16.v20140903 started and listening on port 8080
+15:44:10 INFO   runs at:
+15:44:10 INFO    http://localhost:8080/
+Press any key to stop the server.
 ----
 

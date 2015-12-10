@@ -13,6 +13,8 @@ buildscript {
   }
 }
 
+defaultTasks 'check', 'appRun' //  
+
 repositories {
   mavenLocal()
   jcenter()
