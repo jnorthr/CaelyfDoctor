@@ -4,6 +4,13 @@
 
 Hi form data
 
-== Captured Form Data Follows 
+== Captured Form Data Follows for firstname
 
 <%= request.getAttribute('firstname') %>
+
+''''
+
+
+== Captured adoc Form Data Follows 
+
+<%= request.getAttribute('adoc') %>

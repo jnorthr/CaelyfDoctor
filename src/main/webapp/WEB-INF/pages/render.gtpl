@@ -1,4 +1,4 @@
-<%= request.getAttribute('render') %>
+<%= request.getAttribute('renderthis') %>
 
 End of Render.
 

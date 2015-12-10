@@ -21,37 +21,4 @@
     </head>
 
     <body>
-            <div id="header">
-            <a href="#" alt="Caelyf Doctor Home">
-            <img src="/images/ipad.png" class='ipad' alt="Caelyf Doctor - a lightweight asciidoctor toolkit.">
-		<img src="/images/caelyf-logo.png"  class='anynines'></a>
-        </div>
-
-
-	<div id='cssmenu'>
-	<ul>
-		<li><a href='/'>Home</a></li>
-   		<li class='active'><a href='#'>Environment</a>
-	      		<ul>
-        	 		<li><a href='#'>News</a>
-            			<ul>
-               				<li><a href='/blog'>Our Blog</a></li>
-               				<li><a href='/history'>Service History</a></li>
-            			</ul>
-         			</li>
-         			<li><a href='#'>Your System</a>
-            			<ul>
-               				<li><a href='/see'>System Info</a></li>
-					<li><a href='/docs'>Choose CF</a></li>
-            			</ul>
-         			</li>
-      			</ul>
-   		</li>
-
-   		<li><a href='/a9s'>A9S Installer</a></li>
-		<li><a href='/datetime'>Date &amp; Time</a></li>
-
-	</ul>
-	</div>
-
         <div id="content">

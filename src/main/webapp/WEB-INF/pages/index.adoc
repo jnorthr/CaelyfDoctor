@@ -1,0 +1,12 @@
+= Caelyf Doctor Home Page
+
+== This is the home of CaelyfDoctor
+
+TIP: Choose one of the following links to see further features:
+
+ . link:./datetime[What is the Date and Time now ?]
+ . link:./test[See a Test Page]
+ . link:./ad[See a Form Page]
+ . link:./formdata[Send Form Data Page]
+ . link:./render[Render a Test Page]
+ . link:./readme[See a README Page]
